@@ -1,0 +1,166 @@
+# ========================
+# 🔐 Secrets & Sensitive（绝对不能进Git）
+# ========================
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa
+id_dsa
+*.kube/config
+*.aws/credentials
+*.azure/
+secrets.json
+config.local.json
+credentials.json
+token.json
+apikey.txt
+api_key.txt
+secret.txt
+
+# ========================
+# 🐍 Python
+# ========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.sqlite
+venv/
+env/
+.venv/
+pip-log.txt
+.pytest_cache/
+.tox/
+
+# ========================
+# 🟢 Node.js
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# ☕ Java / JVM
+# ========================
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# ========================
+# 🐹 Go
+# ========================
+bin/
+pkg/
+
+# ========================
+# 🦀 Rust
+# ========================
+target/
+# ⚠️ 如果是应用项目，建议保留 Cargo.lock
+
+# ========================
+# 🏗 Build Output
+# ========================
+dist/
+build/
+out/
+release/
+debug/
+
+# ========================
+# 🧪 Test / Temp / Cache
+# ========================
+tmp/
+temp/
+*.tmp
+*.cache
+coverage/
+htmlcov/
+*.cover
+
+# ========================
+# 📊 Logs（可能含敏感信息）
+# ========================
+*.log
+logs/
+
+# ========================
+# 🗄 数据库 / 导出 / 备份
+# ========================
+*.sql
+*.dump
+backup/
+backups/
+
+# ========================
+# 🔍 安全工具 / 扫描产物
+# ========================
+nmap.xml
+masscan.log
+burp.log
+zap.log
+*.pcap
+*.pcapng
+report/
+reports/
+
+# ========================
+# 🧪 本地测试代码（容易写死密码）
+# ========================
+test_*.py
+debug_*.py
+
+# ========================
+# ☁️ 云 / 基础设施
+# ========================
+*.tfstate
+*.tfvars
+terraform.tfstate*
+.serverless/
+
+# ========================
+# 🐳 Docker / 本地覆盖
+# ========================
+docker-compose.override.yml
+*.env.local
+
+# ========================
+# 💻 IDE / Editor
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ========================
+# 🖥 OS
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# 📦 压缩包 / 临时文件
+# ========================
+*.zip
+*.tar
+*.gz
+*.7z
+*.bak
+*.old
+*.backup
+
+# ========================
+# 🔧 Misc
+# ========================
+downloads/
+data/
+.cache/
