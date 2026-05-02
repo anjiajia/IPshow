@@ -121,10 +121,48 @@ pytest tests/ -v
 
 ## CI/CD
 
-GitHub Actions 已配置，每次 Push / PR 会自动执行：
+### CI（持续集成）
+
+每次 Push / PR 到 `main` 分支会自动执行：
 - Python 3.11 / 3.12 环境下的 pytest 测试
 - 代码风格检查（ruff）
 - Docker 镜像构建与运行测试
+
+### CD（持续交付）
+
+每次推送以 `v` 开头的 Tag（如 `v1.0.0`）会自动触发发布流程：
+
+1. **自动测试**：先跑完整 CI 测试，确保代码质量
+2. **构建多平台镜像**：同时构建 `linux/amd64` 和 `linux/arm64` 镜像
+3. **推送到 GitHub Container Registry (ghcr.io)**：
+   - `ghcr.io/anjiajia/ipshow:v1.0.0`
+   - `ghcr.io/anjiajia/ipshow:latest`
+4. **可选推送到 Docker Hub**：在仓库 Secrets 中配置 `DOCKER_USERNAME` 和 `DOCKER_PASSWORD` 后，会自动同时推送
+5. **创建 GitHub Release**：自动生成 Release Notes
+
+#### 如何发布新版本
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+推送 Tag 后，到 [Actions](https://github.com/anjiajia/IPshow/actions) 页面查看发布进度，约 2-3 分钟后镜像和 Release 都会就绪。
+
+#### 从 GHCR 拉取镜像（无需 Docker Hub）
+
+```bash
+docker pull ghcr.io/anjiajia/ipshow:latest
+docker run -d -p 8501:8501 --name ipshow ghcr.io/anjiajia/ipshow:latest
+```
+
+#### 可选：配置 Docker Hub
+
+如果你想同时推送到 Docker Hub：
+1. 在 GitHub 仓库 → Settings → Secrets and variables → Actions → New repository secret
+2. 添加 `DOCKER_USERNAME`（Docker Hub 用户名）
+3. 添加 `DOCKER_PASSWORD`（Docker Hub Access Token，不是登录密码）
+4. 下次推送 Tag 时就会自动同时推送到 Docker Hub
 
 ## 项目结构
 
@@ -138,7 +176,8 @@ GitHub Actions 已配置，每次 Push / PR 会自动执行：
 │   └── test_core.py    # 单元测试
 ├── .github/
 │   └── workflows/
-│       └── ci.yml      # GitHub Actions CI
+│       ├── ci.yml      # GitHub Actions CI
+│       └── cd.yml      # GitHub Actions CD（自动发布镜像）
 ├── README.md           # 本文件
 ```
 
