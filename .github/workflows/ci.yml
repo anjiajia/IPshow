@@ -32,9 +32,15 @@ jobs:
           pip install ruff
           ruff check core.py app.py --ignore E501 || true
 
+      - name: Verify files
+        run: |
+          ls -la
+          ls -la tests/
+          python -c "import core; print('core imported OK')"
+
       - name: Test with pytest
         run: |
-          pytest tests/ -v --tb=short
+          python -m pytest tests/ -v --tb=short
 
   docker-build:
     runs-on: ubuntu-latest
